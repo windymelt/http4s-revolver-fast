@@ -9,10 +9,13 @@ import org.http4s.server.Router
 
 import scala.concurrent.duration._
 
+/** http4sを使ったテストサーバ。http://localhost:8080/hello/world にアクセスするとメッセージが返るだけのサーバ。
+  * ~reStart をsbt上で実行すると、コード修正時にホットリロードしてくれるようになる。
+  */
 object Main extends IOApp {
   val helloWorldService = HttpRoutes
     .of[IO] { case GET -> Root / "hello" / name =>
-      Ok(s"Hello, $name...")
+      Ok(s"Hello, $name...") // ここを試しに書き換えてみると、高速にリロードされるはず
     }
     .orNotFound
 
